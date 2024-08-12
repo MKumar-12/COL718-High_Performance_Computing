@@ -1,0 +1,21 @@
+    git clone https://github.com/gem5/gem5
+
+(for Ubuntu 22.04)
+    sudo apt update
+
+    sudo apt install build-essential git m4 scons zlib1g zlib1g-dev \
+    libprotobuf-dev protobuf-compiler libprotoc-dev libgoogle-perftools-dev \
+    python3-dev libboost-all-dev pkg-config python3-tk
+
+
+Build gem5 :
+(goto gem5 root dir.)
+    scons build/X86/gem5.opt -j 4
+
+
+(build dir. gets created in Gem5 github repo dir.)
+Run gem5 :
+(goto gem5 root dir.)
+<gem5_build_binary> <gem5_options> <path_to_simulation_file> <options_to_sim_file>
+
+    >>  build/X86/gem5.opt configs/learning_gem5/part1/simple.py -c tests/test-progs/hello/bin/x86/linux/hello
