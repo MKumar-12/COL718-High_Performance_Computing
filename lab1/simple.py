@@ -24,14 +24,7 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-""" This file creates a barebones system and executes 'hello', a simple Hello
-World application.
-See Part 1, Chapter 2: Creating a simple configuration script in the
-learning_gem5 book for more information about this script.
-
-IMPORTANT: If you modify this file, it's likely that the Learning gem5 book
-           also needs to be updated. For now, email Jason <power.jg@gmail.com>
-
+""" This file creates a barebones system and executes 'mm.1', a simple Matrix Multiplication program.
 This script uses the X86 ISA. `simple-arm.py` and `simple-riscv.py` may be
 referenced as examples of scripts which utilize the ARM and RISC-V ISAs
 respectively.
@@ -57,8 +50,6 @@ system.mem_mode = "timing"  # Use timing accesses
 system.mem_ranges = [AddrRange("512MB")]  # Create an address range
 
 # Create a simple CPU
-# You can use ISA-specific CPU models for different workloads:
-# `RiscvTimingSimpleCPU`, `ArmTimingSimpleCPU`.
 system.cpu = X86TimingSimpleCPU()
 
 # Create a memory bus, a system crossbar, in this case
@@ -87,15 +78,10 @@ system.mem_ctrl.port = system.membus.mem_side_ports
 # Connect the system up to the membus
 system.system_port = system.membus.cpu_side_ports
 
-# Here we set the X86 "hello world" binary. With other ISAs you must specify
-# workloads compiled to those ISAs. Other "hello world" binaries for other ISAs
-# can be found in "tests/test-progs/hello".
-thispath = os.path.dirname(os.path.realpath(__file__))
-binary = os.path.join(
-    thispath,
-    "../home/kolin/gem5",
-    "tests/test-progs/hello/bin/x86/linux/hello",
-)
+
+# Here we set the X86 "mm" binary. With other ISAs you must specify
+# workloads compiled to those ISAs. 
+binary='mm.1'
 
 system.workload = SEWorkload.init_compatible(binary)
 
@@ -113,6 +99,6 @@ root = Root(full_system=False, system=system)
 # instantiate all of the objects we've created above
 m5.instantiate()
 
-print("Beginning simulation!")
+print(f"Beginning simulation!")
 exit_event = m5.simulate()
-print("Exiting @ tick %i because %s" % (m5.curTick(), exit_event.getCause()))
+print(f"Exiting @ tick {m5.curTick()} because {exit_event.getCause()}")

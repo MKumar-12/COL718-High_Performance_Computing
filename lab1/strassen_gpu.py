@@ -1,5 +1,6 @@
 # Strassen's MM - T.C. O(n^2.81)        S.C. O(n^2)
 # {using GPU}
+# {Requires input matrix to be of order 2^m}
 
 
 import cupy as cp
