@@ -1,0 +1,8 @@
+Part 2: 
+Write the config script to output the Branch Prediction Statistics [taken /not taken] for the blocked matrix multiplication program 
+that you have written for different Branch Prediction schemes.  
+
+The place to start looking for The Branch Predictions schemes is probably, 
+    gem5/src/cpu/pred/BranchPredictor.py. 
+
+Submit a pdf document containing the script file and table[s] showing the performance of the branch prediction accuracy.

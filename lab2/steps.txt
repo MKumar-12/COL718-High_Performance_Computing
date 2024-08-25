@@ -1,0 +1,7 @@
+> Modify the matrix multiplication program to a blocked version.
+
+
+> Write a gem5 config script to simulate the program under different branch prediction schemes.
+
+
+> Collect branch prediction statistics using the script for each CPU model and frequency configuration from Part 1.
