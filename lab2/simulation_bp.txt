@@ -1,0 +1,9 @@
+CPU Model            Branch Predictor     Tick Count     
+DerivO3CPU           BiModeBP             2285653000     
+DerivO3CPU           TournamentBP         2146897500     
+DerivO3CPU           LocalBP              2652980500     
+DerivO3CPU           TAGE                 2177101500     
+TimingSimpleCPU      BiModeBP             37798633000    
+TimingSimpleCPU      TournamentBP         37798633000    
+TimingSimpleCPU      LocalBP              37798633000    
+TimingSimpleCPU      TAGE                 37798633000    

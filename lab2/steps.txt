@@ -1,7 +1,18 @@
 > Modify the matrix multiplication program to a blocked version.
+    Used a block size of 4 over MM of 20x20
 
 
-> Write a gem5 config script to simulate the program under different branch prediction schemes.
+
+> Writing gem5 config script to simulate the program under different branch prediction schemes.
+    >>  ./gem5.opt branch_pred.py -c mm_blocked.1
+
+    Used Simulation parameters:
+    (fixed mem. & clock speed) @ DDR4_2400_8x8, 2GHz
+
+    CPU models used :   DerivO3CPU, TimingSimpleCPU
+
+    Branch Predictions methods used :   BiModeBP, LocalBP, TAGE, TournamentBP, 
 
 
-> Collect branch prediction statistics using the script for each CPU model and frequency configuration from Part 1.
+
+> Collecting branch prediction statistics using the script for each CPU model and branch prediction methodology.

@@ -8,14 +8,14 @@
 
 
 // Print small segment of MM result
-void printMatrix(int matrix[N][N]) {
-    for (int i = 0; i < 5; i++) {
-        for (int j = 0; j < 5; j++) {
-            printf("%d ", matrix[i][j]);
-        }
-        printf("\n");
-    }
-}
+// void printMatrix(int matrix[N][N]) {
+//     for(int i = 0; i < 5; i++) {
+//         for(int j = 0; j < 5; j++) {
+//             printf("%d ", matrix[i][j]);
+//         }
+//         printf("\n");
+//     }
+// }
 
 
 // Function to multiply matrices
@@ -92,7 +92,7 @@ int main()
     // Perform blocked matrix multiplication
     int res[N][N];
     multiplyMatrices(A, B, res);
-    printMatrix(res);
+    // printMatrix(res);
 
     printf("Blocked MM completed!\n");
     return 0;

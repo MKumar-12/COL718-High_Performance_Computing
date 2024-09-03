@@ -19,3 +19,11 @@ Run gem5 :
 <gem5_build_binary> <gem5_options> <path_to_simulation_file> <options_to_sim_file>
 
     >>  build/X86/gem5.opt configs/learning_gem5/part1/simple.py -c tests/test-progs/hello/bin/x86/linux/hello
+
+
+To generate binary of a C file: 
+    (in WSL)
+    >> gcc <file>.c -o <file>.1 -static -static-libgcc
+
+
+Look for m5out/stats.txt to analyze various benchmark used in simulation.
