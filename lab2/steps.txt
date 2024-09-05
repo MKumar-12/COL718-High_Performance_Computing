@@ -11,7 +11,7 @@
 
     CPU models used :   DerivO3CPU, TimingSimpleCPU
 
-    Branch Predictions methods used :   BiModeBP, LocalBP, TAGE, TournamentBP, 
+    Branch Predictions methods used :   BiModeBP, LocalBP, TAGE, TournamentBP 
 
 
 
