@@ -104,13 +104,13 @@ def subplot_cond(results, cpu_model, parameter1, parameter2, y_limit):
         axes[0].text(bar.get_x() + bar.get_width()/2, yval, int(yval), ha='center', va='bottom')
 
     # Plot for parameter2
-    bars2 = axes[1].bar(positions, param2_values, width=bar_width, color='green', align='center')
+    bars2 = axes[1].bar(positions, param2_values, width=bar_width, color='red', align='center')
     axes[1].set_xticks(positions)
     axes[1].set_xticklabels(branch_predictors, ha='center')
     axes[1].set_ylim(0, y_limit)
     axes[1].set_xlabel("Branch Prediction Method")
-    axes[1].set_ylabel("Conditional Branches Predicted as NOT TAKEN")
-    axes[1].set_title(f"Conditional Branches Predicted as NOT TAKEN for {cpu_model}")
+    axes[1].set_ylabel("Conditional Branches Predicted as INCORRECT")
+    axes[1].set_title(f"Conditional Branches Predicted as INCORRECT for {cpu_model}")
 
     # Display value on top of each bar for parameter2
     for bar in bars2:
@@ -124,7 +124,7 @@ def subplot_cond(results, cpu_model, parameter1, parameter2, y_limit):
 
 
 # Function to plot graph of CPU model with branch prediction statistics
-def plot_cond(results, cpu_model):
+def plot_cond(results, cpu_model, bar_color):
     results = {config: metrics for config, metrics in results.items() if cpu_model in config}
     if not results:
         print(f"No results found for {cpu_model}")
@@ -140,13 +140,11 @@ def plot_cond(results, cpu_model):
         branch_predictors.append(branch_predictor)
         cond_predicted_values.append(cond_predicted)
 
-    colors = ['blue', 'green'] * (len(branch_predictors) // 2 + 1)
-
     # Plotting
     plt.figure(figsize=(10, 6))
 
     bar_width = 0.3  
-    bars = plt.bar(branch_predictors, cond_predicted_values, width=bar_width, color=colors[:len(branch_predictors)])
+    bars = plt.bar(branch_predictors, cond_predicted_values, width=bar_width, color= bar_color)
 
     plt.ylim(0, 125000)
     plt.xlabel("Branch Prediction Method")
@@ -237,17 +235,19 @@ if __name__ == "__main__":
     print_random(2, results)
 
     # Graph for CPU_model with total count of Branches 
-    # plot_cond(results, "TimingSimpleCPU")
-    # plot_cond(results, "DerivO3CPU")
+    plot_cond(results, "TimingSimpleCPU", 'slategray')
+    plot_cond(results, "DerivO3CPU", 'rosybrown')
 
-    # # Graph for CPU_model with count of Branches PREDICTED as TAKEN/NOT_TAKEN
-    # subplot_cond(results, "TimingSimpleCPU", "system.cpu.branchPred.condPredictedTaken", "system.cpu.branchPred.condIncorrect", 65000)
-    # subplot_cond(results, "DerivO3CPU", "system.cpu.branchPred.condPredictedTaken", "system.cpu.branchPred.condIncorrect", 65000)
+    # # Graph for CPU_model with count of Branches PREDICTED as TAKEN/INCORRECT
+    subplot_cond(results, "TimingSimpleCPU", "system.cpu.branchPred.condPredictedTaken", "system.cpu.branchPred.condIncorrect", 65000)
+    subplot_cond(results, "DerivO3CPU", "system.cpu.branchPred.condPredictedTaken", "system.cpu.branchPred.condIncorrect", 65000)
 
     # # Graph for CPU_model with Branches Predicted as TAKEN but actually NOT TAKEN
-    # plot_cond_mispredicted(results, "TimingSimpleCPU", "system.cpu.branchPred.TakenMispredicted", 1000)
-    # plot_cond_mispredicted(results, "DerivO3CPU", "system.cpu.branchPred.TakenMispredicted", 2000)
+    plot_cond_mispredicted(results, "TimingSimpleCPU", "system.cpu.branchPred.TakenMispredicted", 1000)
+    plot_cond_mispredicted(results, "DerivO3CPU", "system.cpu.branchPred.TakenMispredicted", 2000)
 
     # # Graph for CPU_model with Branches Predicted as NOT TAKEN but actually TAKEN
-    # plot_cond_mispredicted(results, "TimingSimpleCPU", "system.cpu.branchPred.NotTakenMispredicted", 20000)
-    # plot_cond_mispredicted(results, "DerivO3CPU", "system.cpu.branchPred.NotTakenMispredicted", 20000)
+    plot_cond_mispredicted(results, "TimingSimpleCPU", "system.cpu.branchPred.NotTakenMispredicted", 20000)
+    plot_cond_mispredicted(results, "DerivO3CPU", "system.cpu.branchPred.NotTakenMispredicted", 20000)
+
+    print(f"Plots were successfully saved at : {save_dir}")

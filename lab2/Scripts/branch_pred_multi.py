@@ -37,8 +37,6 @@ elif args.bp == "LocalBP":
     system.cpu.branchPred = LocalBP()
 elif args.bp == "TAGE":
     system.cpu.branchPred = TAGE()
-elif args.bp == "SimpleBP":
-    system.cpu.branchPred = SimpleBP()
 else:
     raise ValueError(f"Unknown branch predictor: {args.bp}")
 
