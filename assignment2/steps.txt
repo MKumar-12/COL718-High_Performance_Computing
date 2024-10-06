@@ -1,0 +1,136 @@
+> Modify the matrix multiplication program & generated binaries for:
+    1st is simple MM implementation
+    2nd has reordered loops (to verify cache access paatern) 
+    lastly has a blocked MM with block size of 15 over matrices of 75x75
+
+
+
+> Writing gem5 config script to simulate the program under different L1 & L2 cache parameters.
+    >>  ./gem5.opt cache_multi.py --bin_exec mm_rearranged.1 
+
+    Used Simulation parameters:
+    (fixed mem. & clock speed) @ DDR4_2400_8x8, 2GHz
+
+    CPU models used :   DerivO3CPU, TimingSimpleCPU
+
+    Binaries used   :   mm_simple.1, mm_rearranged.1, mm_blocked.1
+
+    L1i parameters used :   
+        Size                :   16Kb, 128Kb
+        Associativity       :   2, 4, 8, 16
+        Tag latency         :   2, 4
+        Data latency        :   2, 4
+        Response latency    :   2, 4
+
+    L1d parameters used :   
+        Size                :   32Kb, 128Kb
+        Associativity       :   2, 4, 8, 16
+        Tag latency         :   2, 4
+        Data latency        :   2, 4
+        Response latency    :   2, 4
+
+    L2 parameters used :   
+        Size                :   256Kb, 1Mb
+        Associativity       :   4, 8, 16
+        Tag latency         :   10, 20
+        Data latency        :   10, 20
+        Response latency    :   10, 20
+
+{Pass 1-2 for effect of algo.}
+Pass 1       {for all 3 binaries}
+    CPU  :    TimingSimpleCPU
+    L1i  :   
+            Size - 16Kb,    Associativity - 2,  Tag latency - 2,    Data latency - 2,   Response latency - 2  
+    L1d  :   
+            Size - 32Kb,    Associativity - 2,  Tag latency - 2,    Data latency - 2,   Response latency - 2 
+    L2   :   
+            Size - 256Kb,   Associativity - 8,  Tag latency - 20,    Data latency - 20,   Response latency - 20  
+
+Pass 2      {for all 3 binaries}
+    CPU  :    DerivO3CPU
+    L1i  :   
+            Size - 16Kb,    Associativity - 2,  Tag latency - 2,    Data latency - 2,   Response latency - 2  
+    L1d  :   
+            Size - 32Kb,    Associativity - 2,  Tag latency - 2,    Data latency - 2,   Response latency - 2 
+    L2   :   
+            Size - 256Kb,   Associativity - 8,  Tag latency - 20,    Data latency - 20,   Response latency - 20  
+
+
+{Pass 3-5 for effect of cache size}
+Pass 3      {for mm_blocked.1}      -> L1i changed to 64Kb, L1d changed to 128Kb 
+    CPU  :    TimingSimpleCPU
+    L1i  :   
+            Size - 64Kb,    Associativity - 2,  Tag latency - 2,    Data latency - 2,   Response latency - 2 
+    L1d  :   
+            Size - 128Kb,    Associativity - 2,  Tag latency - 2,    Data latency - 2,   Response latency - 2  
+    L2   :   
+            Size - 256Kb,   Associativity - 8,  Tag latency - 20,    Data latency - 20,   Response latency - 20   
+
+Pass 4      {for mm_blocked.1}      -> changed CPU 
+    CPU  :    DerivO3CPU
+    L1i  :   
+            Size - 64Kb,    Associativity - 2,  Tag latency - 2,    Data latency - 2,   Response latency - 2 
+    L1d  :   
+            Size - 128Kb,    Associativity - 2,  Tag latency - 2,    Data latency - 2,   Response latency - 2  
+    L2   :   
+            Size - 256Kb,   Associativity - 8,  Tag latency - 20,    Data latency - 20,   Response latency - 20   
+
+Pass 5      {for mm_blocked.1}      -> L2 changed to 1Mb
+    CPU  :    TimingSimpleCPU
+    L1i  :   
+            Size - 64Kb,    Associativity - 2,  Tag latency - 2,    Data latency - 2,   Response latency - 2 
+    L1d  :   
+            Size - 128Kb,    Associativity - 2,  Tag latency - 2,    Data latency - 2,   Response latency - 2  
+    L2   :   
+            Size - 1Mb,   Associativity - 8,  Tag latency - 20,    Data latency - 20,   Response latency - 20  
+
+{Pass 6-8 for effect of cache Associativity}
+Pass 6      {for mm_blocked.1}      -> L1 Associativity changed to 4
+    CPU  :    DerivO3CPU
+    L1i  :   
+            Size - 64Kb,    Associativity - 4,  Tag latency - 2,    Data latency - 2,   Response latency - 2 
+    L1d  :   
+            Size - 128Kb,    Associativity - 4,  Tag latency - 2,    Data latency - 2,   Response latency - 2  
+    L2   :   
+            Size - 256Kb,   Associativity - 8,  Tag latency - 20,    Data latency - 20,   Response latency - 20 
+Pass 7       {for mm_blocked.1}      -> L1 Associativity changed to 8
+    CPU  :    DerivO3CPU
+    L1i  :   
+            Size - 64Kb,    Associativity - 8,  Tag latency - 2,    Data latency - 2,   Response latency - 2 
+    L1d  :   
+            Size - 128Kb,    Associativity - 8,  Tag latency - 2,    Data latency - 2,   Response latency - 2  
+    L2   :   
+            Size - 256Kb,   Associativity - 8,  Tag latency - 20,    Data latency - 20,   Response latency - 20 
+
+Pass 8       {for mm_blocked.1}      -> L2 Associativity changed to 16
+    CPU  :    DerivO3CPU
+    L1i  :   
+            Size - 64Kb,    Associativity - 8,  Tag latency - 2,    Data latency - 2,   Response latency - 2 
+    L1d  :   
+            Size - 128Kb,    Associativity - 8,  Tag latency - 2,    Data latency - 2,   Response latency - 2  
+    L2   :   
+            Size - 256Kb,   Associativity - 16,  Tag latency - 20,    Data latency - 20,   Response latency - 20 
+
+
+{Pass 9-10 for effect of cache latency}
+Pass 9      {for mm_blocked.1}      -> L2 latency changed to 10
+    CPU  :    DerivO3CPU
+    L1i  :   
+            Size - 64Kb,    Associativity - 8,  Tag latency - 2,    Data latency - 2,   Response latency - 2 
+    L1d  :   
+            Size - 128Kb,    Associativity - 8,  Tag latency - 2,    Data latency - 2,   Response latency - 2  
+    L2   :   
+            Size - 256Kb,   Associativity - 16,  Tag latency - 10,    Data latency - 10,   Response latency - 10 
+
+Pass 10      {for mm_blocked.1}      -> L1 latency changed to 4
+    CPU  :    DerivO3CPU
+    L1i  :   
+            Size - 64Kb,    Associativity - 8,  Tag latency - 4,    Data latency - 4,   Response latency - 4 
+    L1d  :   
+            Size - 128Kb,    Associativity - 8,  Tag latency - 4,    Data latency - 4,   Response latency - 4  
+    L2   :   
+            Size - 256Kb,   Associativity - 16,  Tag latency - 20,    Data latency - 20,   Response latency - 20 
+
+
+
+> Collecting performance characteristics and cache efficiency using the script for each CPU model with varying L1/L2 parameters for diff. MM algo.
