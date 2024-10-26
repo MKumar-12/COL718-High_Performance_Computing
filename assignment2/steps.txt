@@ -1,6 +1,6 @@
 > Modify the matrix multiplication program & generated binaries for:
     1st is simple MM implementation
-    2nd has reordered loops (to verify cache access paatern) 
+    2nd has reordered loops (to verify cache access pattern) 
     lastly has a blocked MM with block size of 15 over matrices of 75x75
 
 
