@@ -1,0 +1,17 @@
+Folder,Mode,N,Execution Time,CPI,Number of Cycles
+customcombination70_stats,custom,70,0.007231,98.015669,7231106
+normalcombination110_stats,normal,110,0.040024,80.042013,40023568
+customcombination50_stats,custom,50,0.003966,96.714087,3966148
+customcombination90_stats,custom,90,0.011578,98.587925,11577673
+normalcombination60_stats,normal,60,0.012545,79.774855,12544915
+customcombination110_stats,custom,110,0.016961,98.899047,16960692
+normalcombination80_stats,normal,80,0.021639,79.941574,21638745
+customcombination60_stats,custom,60,0.005488,97.405474,5487727
+normalcombination120_stats,normal,120,0.047399,80.054766,47398986
+customcombination80_stats,custom,80,0.009279,98.38981,9278651
+normalcombination100_stats,normal,100,0.033269,80.015414,33268969
+customcombination100_stats,custom,100,0.01414,98.768666,14140216
+normalcombination70_stats,normal,70,0.016765,79.895354,16764602
+normalcombination90_stats,normal,90,0.027141,79.982878,27140750
+normalcombination50_stats,normal,50,0.00892,79.637299,8919696
+customcombination120_stats,custom,120,0.020039,98.995919,20039249
